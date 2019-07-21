@@ -1,6 +1,6 @@
 # avb-aur
 
-Attila Bogár ArchLinux AUR packages
+Attila Bogár's ArchLinux AUR packages
 
 ## DISCLAIMER
 
