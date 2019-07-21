@@ -1,0 +1,13 @@
+post_install() {
+  echo "Running iscan-registry to register V600 plugins and firmware with iscan"
+  iscan-registry --add interpreter usb 0x04b8 0x013a \
+    /usr/lib/iscan/libesintA1 \
+    /usr/share/iscan/esfwA1.bin 
+}
+
+pre_remove() {
+  echo "Unregistering V600 plugins/firmware"
+  iscan-registry --remove interpreter usb 0x04b8 0x013a \
+    /usr/lib/iscan/libesintA1 \
+    /usr/share/iscan/esfwA1.bin 
+}

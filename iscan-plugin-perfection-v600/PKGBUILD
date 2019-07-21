@@ -1,0 +1,64 @@
+# Maintainer: Attila Bogár <attila.bogar@gmail.com>
+#
+# Copied from iscan-plugin-perfection-v370:
+# _Contributor Alistair Grant <akgrant0710 at gmail dot com>
+# _Contributor Muflone http://www.muflone.com/contacts/english/
+# _Contributor Ian Heafer <archlinux at studio oneword turnip dot net>
+# _Contributor Gianni Vialetto <g dot vialetto at gmail dot com>
+# _Contributor Brian Miller :
+# _Contributor Tom Kuther <gimpel@sonnenkinder.org>
+# _Contributor Andrew Kotsyuba <avallach2000@gmail.com>
+#
+# Note: This is untested as I have no access to GT-X820 / V600 scanners
+
+pkgname=iscan-plugin-perfection-v600
+pkgver=2.2.0
+_realpkgname=iscan-plugin-gt-x820
+_realpkgver=2.2.0-1
+_bundlever=1.0.1
+pkgrel=1
+pkgdesc="EPSON Image Scan! plugin for Epson Perfection V600 / GT-X820 scanners"
+arch=('i686' 'x86_64')
+url="http://support.epson.net/linux/en/iscan.php?model=perfection-v370&version=1.0.0"
+license=('custom:AVASYSPL')
+depends=('iscan' 'iscan-data')
+source_i686=("https://download2.ebz.epson.net/iscan/plugin/gt-x820/deb/x86/iscan-gt-x820-bundle-${_bundlever}.x86.deb.tar.gz")
+source_x86_64=("https://download2.ebz.epson.net/iscan/plugin/gt-x820/deb/x64/iscan-gt-x820-bundle-${_bundlever}.x64.deb.tar.gz")
+sha256sums_i686=('497de275c0bc4b6d5fe7eadf7d2c10979a47cebac473f6a7c7606451a17b2aaa')
+sha256sums_x86_64=('d8da384b65134a74a8db78802a5be1e0f85194f1ffb9aa064576a61cc84462f9')
+install="${pkgname}.install"
+
+if [ "$CARCH" = 'x86_64' ]
+then
+  _filearch=x64
+  _debarch=amd64
+else
+  _filearch=x86
+  _debarch=i386
+fi
+
+_bundle_name=iscan-gt-x820-bundle-${_bundlever}.${_filearch}.deb
+
+build() {
+  cd "${srcdir}/${_bundle_name}/plugins"
+  bsdtar -xf ${_realpkgname}_${_realpkgver}_${_debarch}.deb
+  bsdtar -xf data.tar.gz
+}
+
+package() {
+  cd "${srcdir}/${_bundle_name}/plugins"
+  install -m 755 -d "${pkgdir}/usr/share/iscan"
+  install -m 644 -t "${pkgdir}/usr/share/iscan" "usr/share/iscan/esfwA1.bin"
+
+  install -m 755 -d "${pkgdir}/usr/share/licenses/${pkgname}"
+  install -m 644 "usr/share/doc/${_realpkgname}/AVASYSPL.en.txt" "${pkgdir}/usr/share/licenses/${pkgname}/AVASYSPL"
+
+  install -m 755 -d "${pkgdir}/usr/share/doc/${pkgname}"
+  install -m 644 -t "${pkgdir}/usr/share/doc/${pkgname}" "usr/share/doc/${_realpkgname}/copyright"
+
+  install -m 755 -d "${pkgdir}/usr/lib/iscan"
+  install -m 644 -t "${pkgdir}/usr/lib/iscan" "usr/lib/iscan/libesintA1.so.2.0.1"
+  cd "${pkgdir}/usr/lib/iscan"
+  ln -s libesintA1.so.2.0.1 libesintA1.so
+  ln -s libesintA1.so.2.0.1 libesintA1.so.2
+}
