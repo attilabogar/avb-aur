@@ -1,0 +1,22 @@
+# Maintainer: Attila Bogár <attila.bogar@gmail.com>
+
+pkgname=neroaac
+pkgver=1.5.4
+pkgrel=1
+pkgdesc="Command line Nero AAC Codec without a graphical user interface"
+arch=( 'x86_64' )
+url='https://www.softpedia.com/get/Multimedia/Audio/Audio-CD-Rippers-Encoders/Nero-Digital-Audio.shtml'
+license=('custom')
+depends=('lib32-gcc-libs' 'lib32-glibc')
+options=(!strip)
+source=('NeroAACCodec-1.5.1.zip')
+sha256sums=('e0496ad856e2803001a59985368d21b22f4fbdd55589c7f313d6040cefff648b')
+
+package() {
+  install -m 755 -d "${pkgdir}/usr/share/licenses/${pkgname}"
+  install -m 644 -t "${pkgdir}/usr/share/licenses/${pkgname}" "license.txt"
+  install -m 755 -d "${pkgdir}/usr/share/${pkgname}"
+  install -m 644 -t "${pkgdir}/usr/share/${pkgname}" "readme.txt"
+  install -m 755 -d "${pkgdir}/usr/bin"
+  install -m 755 -t "${pkgdir}/usr/bin" linux/*
+}
