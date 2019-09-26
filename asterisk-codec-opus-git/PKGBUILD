@@ -1,0 +1,26 @@
+# Maintainer: Attila Bogár <attila.bogar@gmail.com>
+pkgname='asterisk-codec-opus-git'
+pkgver=000000000
+pkgrel=1
+pkgdesc='Open Source Opus Codec for Asterisk PBX'
+arch=('i686' 'x86_64' 'armv7h' 'aarch64')
+url='https://github.com/traud/asterisk-opus'
+license=('GPL2')
+depends=('asterisk' 'opusfile')
+makedepends=('git')
+source=("$pkgname::git+https://github.com/attilabogar/asterisk-opus")
+sha256sums=('SKIP')
+
+pkgver() {
+  git -C $srcdir/$pkgname describe --always | sed 's|-|.|g'
+}
+
+build() {
+  cd $srcdir/$pkgname
+  make
+}
+package() {
+  cd $srcdir/$pkgname
+  make DESTDIR=$pkgdir install
+  chown -R 0:0 $pkgdir
+}
