@@ -21,7 +21,7 @@ source=("https://github.com/AGProjects/${_pkgname}/archive/release-${pkgver}.tar
         "snd_pcm_drop.patch" "fix_tls_verify.patch")
 sha512sums=('007205bf5a88b2ebfa32541e3a3dc47effa1854648371d8fcc90b07a302fffe5bde4c2f8e2231fdf24df397bc237d7bd1e6414f17fc4d9b6486137bcb98fccc7'
             '887cb3cfee82280c07bf4ba1779aebc2fbc49e2afff87ed3cd1e58b5ac8973e6d7f93e86284511dfef154a1f991bc985b4c97fc3b7d327d6791b72a124526683'
-            '6c32d1c2ec4b4da4c4ffd75c75c9f94b11f964431d264a1d8fff9f8dc41b879e85276662aaff048ec51a8c52450b2cba4da19e3455c4475b921de9cc2b2473a0')
+            '6d8595f37bc3074704bd0d26838992ff8e079cb6d5065ec6e6dececa45b0a7aa3bfa91bcf6d7970b7041aa2feb7a8124b99dc21aaf9f68fd8905349b934c4817')
 
 prepare() {
   cd  "${srcdir}/${_pkgname}-release-${pkgver}"

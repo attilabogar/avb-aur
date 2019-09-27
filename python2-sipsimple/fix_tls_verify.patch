@@ -77,12 +77,3 @@ diff -ur python-sipsimple-release-3.4.2.orig/sipsimple/lookup.py python-sipsimpl
                      return [Route(address=result.address, port=result.port, transport=naptr_service_transport_map[result.service]) for result in pointers]
                  else:
                      # If that fails, try SRV lookup
-@@ -405,6 +413,8 @@
-                 addresses = self._lookup_a_records(resolver, [r.target.to_text() for r in additional_services[srv_name]], additional_records)
-                 for record in additional_services[srv_name]:
-                     services[srv_name].extend(SRVResult(record.priority, record.weight, record.port, addr) for addr in addresses.get(record.target.to_text(), ()))
-+                    # print( record.target.to_text().rstrip(".").lower())
-+                    # services[srv_name].extend([SRVResult(record.priority, record.weight, record.port, record.target.to_text().rstrip(".").lower())])
-             else:
-                 try:
-                     answer = resolver.query(srv_name, rdatatype.SRV)
