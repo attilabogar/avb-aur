@@ -61,7 +61,7 @@ diff -ur python-sipsimple-release-3.4.2.orig/sipsimple/lookup.py python-sipsimpl
                      raise DNSLookupError("Requested lookup for SIPS URI, but with %s transport parameter" % transport)
 +                # if TLS, we defer the SRV lookup to pjsip to PASS TLS verification a'la https://tools.ietf.org/html/rfc5922#section-7.3
 +                if transport == 'tls':
-+                    return [Route(address=uri.host, port=None, transport=transport)]
++                    return [Route(address=uri.host, port=None, transport='tls')]
                  record_name = '%s.%s' % (transport_service_map[transport], uri.host)
                  services = self._lookup_srv_records(resolver, [record_name], log_context=log_context)
                  if services[record_name]:
