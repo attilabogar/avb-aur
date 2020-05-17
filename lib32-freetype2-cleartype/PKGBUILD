@@ -5,7 +5,7 @@ pkgname=lib32-$_pkgbasename-cleartype
 pkgver=2.10.2
 pkgrel=1
 pkgdesc="TrueType font rendering library with ClearType patch (32-bit)"
-arch=(x86_64)
+arch=('i686' 'x86_64' 'armv6h' 'armv7h' 'aarch64')
 license=('GPL')
 url="https://www.freetype.org/"
 # adding harfbuzz for improved OpenType features auto-hinting
